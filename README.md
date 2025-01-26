@@ -445,3 +445,144 @@ ggplot(data, aes(x = as.factor(Cluster), y = as.numeric(Daily_Spend_SM), fill = 
 
 ```
 
+```{r}
+library(klaR)
+library(dplyr)
+library(ggplot2)
+
+# Load Your Dataset (replace with actual file)
+data <- read.csv("C:/Users/HP/Desktop/kaleniya/3rd year/SEM 2/CAPSTONE PROJECT/Data_Research.csv")  # Replace with actual file name
+
+# Convert Categorical Columns to Factors
+categorical_columns <- c("Marital_Status", "Gender", "Daily_Spend_SM", "Most_Used_SM", "Frequency_FFA", 
+                         "Strategy", "Type_TA", "Type_IR", "Type_CR", "Type_LTO", 
+                         "Influence", "State_Trust", "Age_Requirement", "Residence_Requirement")
+
+data[categorical_columns] <- lapply(data[categorical_columns], as.factor)
+
+# Assign Strategy Type Based on Responses
+data <- data %>%
+  mutate(Platform_Type = case_when(
+    Most_Used_SM == "Facebook" ~ "Facebook",
+    Most_Used_SM == "Instagram" ~ "Instagram",
+    Most_Used_SM == "WhatsApp" ~ "WhatsApp",
+    Most_Used_SM == "YouTube" ~ "YouTube",
+    Most_Used_SM == "TikTok" ~ "TikTok",
+    TRUE ~ "Other"
+  ))
+
+# Assign Clusters Based on Strategy Type
+data$Cluster <- case_when(
+  data$Platform_Type == "Facebook" ~ 1,         # Cluster 1: Targeted Ads
+  data$Platform_Type == "Instagram" ~ 2,  # Cluster 2: Influencer Recommendation
+  data$Platform_Type == "WhatsApp" ~ 3,        # Cluster 3: Customer Reviews
+  data$Platform_Type == "YouTube" ~ 4,  # Cluster 4: Limited-Time Offers
+  data$Platform_Type == "TikTok" ~ 5,
+  TRUE ~ 6                                              # Cluster 5: Other
+)
+
+# Select relevant categorical columns for clustering (excluding Strategy_Type and Cluster)
+clustering_columns <- c("Strategy", "Gender", "Daily_Spend_SM", "Frequency_FFA", 
+                        "Influence", "State_Trust", "Marital_Status","Age_Requirement", "Residence_Requirement")
+
+# Apply K-Modes clustering for refinement (you can choose the appropriate 'k' after running the Elbow method or other criteria)
+set.seed(123)
+kmodes_model <- kmodes(data[clustering_columns], 5, iter.max = 10)
+
+# Assign refined cluster labels to data
+data$Refined_Cluster <- kmodes_model$cluster
+
+# Summary of clusters
+cluster_summary <- data %>%
+  group_by(Cluster, Platform_Type) %>%
+  summarise(
+    Count = n(),
+    Most_Common_Strategy = names(sort(table(Strategy), decreasing = TRUE))[1],
+    Dominant_Gender = names(sort(table(Gender), decreasing = TRUE))[1],
+    Dominant_State_Trust = names(sort(table(State_Trust), decreasing = TRUE))[1],
+    Dominant_Marital_Status = names(sort(table(Marital_Status), decreasing = TRUE))[1]
+  )
+
+# View Cluster Summary
+print(cluster_summary)
+
+# Visual Representation (Bar Plot for Strategy Type Distribution by Cluster)
+ggplot(data, aes(x = as.factor(Cluster), fill = Platform_Type)) +
+  geom_bar(position = "stack") +
+  labs(title = "Cluster Distribution by Strategy Type", x = "Cluster", y = "Count") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set3")
+
+# Visual Representation (Bar Plot for Gender Distribution in Clusters)
+ggplot(data, aes(x = as.factor(Cluster), fill = Gender)) +
+  geom_bar(position = "stack") +
+  labs(title = "Gender Distribution by Cluster", x = "Cluster", y = "Count") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set2")
+
+
+
+
+```
+```{r}
+library(klaR)
+library(dplyr)
+library(ggplot2)
+
+# Load Your Dataset (replace with actual file)
+data <- read.csv("C:/Users/HP/Desktop/kaleniya/3rd year/SEM 2/CAPSTONE PROJECT/Data_Research.csv")  # Replace with actual file name
+
+# Convert Categorical Columns to Factors
+categorical_columns <- c("Marital_Status", "Gender", "Daily_Spend_SM", "Most_Used_SM", "Frequency_FFA", 
+                         "Strategy", "Type_TA", "Type_IR", "Type_CR", "Type_LTO", 
+                         "Influence", "State_Trust", "Age_Requirement", "Residence_Requirement")
+
+data[categorical_columns] <- lapply(data[categorical_columns], as.factor)
+
+# Assign Strategy Type Based on Responses
+data <- data %>%
+  mutate(Daily_Spend_SM_Type = case_when(
+    Daily_Spend_SM == "1 - 3 hours" ~ "1 - 3 hours",
+    Daily_Spend_SM == "4 - 6 hours" ~ "4 - 6 hours",
+    Daily_Spend_SM == "Less than 1 hour" ~ "Less than 1 hour",
+    Daily_Spend_SM == "More than 6 hours" ~ "More than 6 hours",
+    TRUE ~ "Other"
+  ))
+
+# Assign Clusters Based on Strategy Type
+data$Cluster <- case_when(
+  data$Daily_Spend_SM_Type == "1 - 3 hours" ~ 1,         
+  data$Daily_Spend_SM_Type == "4 - 6 hours" ~ 2,  
+  data$Daily_Spend_SM_Type == "Less than 1 hour" ~ 3,        
+  data$Daily_Spend_SM_Type == "More than 6 hours" ~ 4,  
+  TRUE ~ 5                                              # Cluster 5: Other
+)
+
+# Select relevant categorical columns for clustering (excluding Strategy_Type and Cluster)
+clustering_columns <- c("Strategy", "Gender", "Most_Used_SM", "Frequency_FFA", 
+                        "Influence", "State_Trust", "Marital_Status","Age_Requirement", "Residence_Requirement")
+
+# Apply K-Modes clustering for refinement (you can choose the appropriate 'k' after running the Elbow method or other criteria)
+set.seed(123)
+kmodes_model <- kmodes(data[clustering_columns], 4, iter.max = 10)
+
+# Assign refined cluster labels to data
+data$Refined_Cluster <- kmodes_model$cluster
+
+# Summary of clusters
+cluster_summary <- data %>%
+  group_by(Cluster, Daily_Spend_SM_Type) %>%
+  summarise(
+    Count = n(),
+    Most_Common_Used_SM = names(sort(table(Most_Used_SM), decreasing = TRUE))[1],
+    Dominant_State_Trust = names(sort(table(State_Trust), decreasing = TRUE))[1],
+    Dominant_Marital_Status = names(sort(table(Marital_Status), decreasing = TRUE))[1]
+  )
+
+# View Cluster Summary
+print(cluster_summary)
+
+
+
+```
+
