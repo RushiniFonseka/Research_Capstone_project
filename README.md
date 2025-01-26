@@ -90,3 +90,269 @@ ggplot(coef_df, aes(x = Predictor, y = Estimate)) +
   coord_flip()
 
 ```
+
+```{r}
+
+
+# Load necessary libraries
+library(dplyr)
+
+# Read the dataset
+data <- read.csv("C:/Users/HP/Desktop/kaleniya/3rd year/SEM 2/CAPSTONE PROJECT/Data_Research.csv")
+
+data
+
+
+# Check the changes
+table(data$Daily_Spend_SM, data$Most_Used_SM)
+
+contingency_table <- table(data_filtered$Daily_Spend_SM, data_filtered$Most_Used_SM)
+
+contingency_table_modified <- contingency_table[-2, ]  # Removes the second row
+
+contingency_table_modified
+
+# Run the Chi-Square test
+chi_square_test <- chisq.test(contingency_table_modified)
+
+# Print the result
+chi_square_test
+
+# Compute Cramér's V
+cramers_v <- sqrt(chi_square_test$statistic / (sum(contingency_table) * (min(nrow(contingency_table), ncol(contingency_table)) - 1)))
+
+# Display Results
+cramers_v
+
+
+
+# Check the changes
+table(data$Daily_Spend_SM, data$Frequency_FFA)
+
+contingency_table <- table(data_filtered$Daily_Spend_SM, data_filtered$Frequency_FFA)
+
+contingency_table_modified <- contingency_table[-2, ]  # Removes the second row
+contingency_table_modified
+
+# Run the Chi-Square test
+chi_square_test <- chisq.test(contingency_table_modified)
+
+# Print the result
+chi_square_test
+
+
+# Compute Cramér's V
+cramers_v <- sqrt(chi_square_test$statistic / (sum(contingency_table) * (min(nrow(contingency_table), ncol(contingency_table)) - 1)))
+
+# Display Results
+cramers_v
+
+
+# Check the changes
+table(data$Daily_Spend_SM, data$Marital_Status)
+
+contingency_table <- table(data_filtered$Daily_Spend_SM, data_filtered$Marital_Status)
+
+contingency_table_modified <- contingency_table[-2, ]  # Removes the second row
+contingency_table_modified
+
+# Run the Chi-Square test
+chi_square_test <- chisq.test(contingency_table_modified)
+
+# Print the result
+chi_square_test
+
+
+# Compute Cramér's V
+cramers_v <- sqrt(chi_square_test$statistic / (sum(contingency_table) * (min(nrow(contingency_table), ncol(contingency_table)) - 1)))
+
+# Display Results
+cramers_v
+
+
+table(data$Daily_Spend_SM, data$State_Trust)
+
+contingency_table <- table(data_filtered$Daily_Spend_SM, data_filtered$State_Trust)
+
+contingency_table_modified <- contingency_table[-2, ]  # Removes the second row
+contingency_table_modified
+
+# Run the Chi-Square test
+chi_square_test <- chisq.test(contingency_table_modified)
+
+# Print the result
+chi_square_test
+
+
+# Compute Cramér's V
+cramers_v <- sqrt(chi_square_test$statistic / (sum(contingency_table) * (min(nrow(contingency_table), ncol(contingency_table)) - 1)))
+
+# Display Results
+cramers_v
+
+# Convert Variables to Factors (if not already)
+data$Most_Used_SM <- as.factor(data$Most_Used_SM)
+data$Daily_Spend_SM <- as.factor(data$Daily_Spend_SM)
+data$Frequency_FFA <- as.factor(data$Frequency_FFA)
+data$Marital_Status <- as.factor(data$Marital_Status)
+data$State_Trust <- as.factor(data$State_Trust)
+
+# Fit Multinomial Logistic Regression Model
+logit_model <- multinom(Daily_Spend_SM ~ Most_Used_SM + Frequency_FFA + Marital_Status + State_Trust,  data = data)
+
+# View Model Summary
+summary(logit_model)
+
+# Load libraries
+library(ggplot2)
+library(ggmosaic)
+library(ggpubr)
+library(corrplot)
+library(reshape2)
+library(dplyr)
+
+coef_df <- data.frame(
+  Predictor = rownames(summary(logit_model)$coefficients),
+  Estimate = summary(logit_model)$coefficients[, 1],  # Coefficients
+  StdError = summary(logit_model)$standard.errors[, 1]  # Standard Errors
+)
+
+# Plot coefficients with error bars
+ggplot(coef_df, aes(x = Predictor, y = Estimate)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = Estimate - 1.96 * StdError, ymax = Estimate + 1.96 * StdError), width = 0.2) +
+  labs(title = "Multinomial Logistic Regression Coefficients",
+       x = "Predictor Variables", y = "Coefficient Estimate") +
+  theme_minimal() +
+  coord_flip()
+
+
+```
+```{r}
+
+# Load necessary libraries
+library(dplyr)
+
+# Read the dataset
+data <- read.csv("C:/Users/HP/Desktop/kaleniya/3rd year/SEM 2/CAPSTONE PROJECT/Data_Research.csv")
+
+data
+
+# Merge TikTok and Other into "Other" category
+data$Most_Used_SM <- ifelse(data$Most_Used_SM %in% c("TikTok", "Other"), "Other", data$Most_Used_SM)
+
+# Check the filtered data
+table(data_filtered$Most_Used_SM, data_filtered$Marital_Status)
+
+
+contingency_table <- table(data_filtered$Most_Used_SM, data_filtered$Marital_Status)
+
+# Run the Chi-Square Test
+chi_square_test <- chisq.test(contingency_table)
+
+# Check the result
+chi_square_test
+
+# Compute Cramér's V
+cramers_v <- sqrt(chi_square_test$statistic / (sum(contingency_table) * (min(nrow(contingency_table), ncol(contingency_table)) - 1)))
+
+# Display Results
+cramers_v
+
+
+# Check the filtered data
+table(data_filtered$Most_Used_SM, data_filtered$Gender)
+
+
+contingency_table <- table(data_filtered$Most_Used_SM, data_filtered$Gender)
+
+# Run the Chi-Square Test
+chi_square_test <- chisq.test(contingency_table)
+
+# Check the result
+chi_square_test
+
+# Compute Cramér's V
+cramers_v <- sqrt(chi_square_test$statistic / (sum(contingency_table) * (min(nrow(contingency_table), ncol(contingency_table)) - 1)))
+
+# Display Results
+cramers_v
+
+
+# Check the filtered data
+table(data_filtered$Most_Used_SM, data_filtered$Strategy)
+
+
+contingency_table <- table(data_filtered$Most_Used_SM, data_filtered$Strategy)
+
+# Run the Chi-Square Test
+chi_square_test <- chisq.test(contingency_table)
+
+# Check the result
+chi_square_test
+
+# Compute Cramér's V
+cramers_v <- sqrt(chi_square_test$statistic / (sum(contingency_table) * (min(nrow(contingency_table), ncol(contingency_table)) - 1)))
+
+# Display Results
+cramers_v
+
+
+# Check the filtered data
+table(data_filtered$Most_Used_SM, data_filtered$State_Trust)
+
+
+contingency_table <- table(data_filtered$Most_Used_SM, data_filtered$State_Trust)
+
+# Run the Chi-Square Test
+chi_square_test <- chisq.test(contingency_table)
+
+# Check the result
+chi_square_test
+
+# Compute Cramér's V
+cramers_v <- sqrt(chi_square_test$statistic / (sum(contingency_table) * (min(nrow(contingency_table), ncol(contingency_table)) - 1)))
+
+# Display Results
+cramers_v
+
+
+# Convert Variables to Factors (if not already)
+data$Most_Used_SM <- as.factor(data$Most_Used_SM)
+data$Daily_Spend_SM <- as.factor(data$Strategy)
+data$Frequency_FFA <- as.factor(data$Gender)
+data$Marital_Status <- as.factor(data$Marital_Status)
+data$State_Trust <- as.factor(data$State_Trust)
+
+# Fit Multinomial Logistic Regression Model
+logit_model <- multinom(Most_Used_SM ~ Strategy + Marital_Status + Gender + State_Trust ,  data = data)
+
+# View Model Summary
+summary(logit_model)
+
+#install.packages(c("ggplot2", "ggmosaic", "ggpubr", "corrplot", "reshape2", "dplyr"))
+
+# Load libraries
+library(ggplot2)
+library(ggmosaic)
+library(ggpubr)
+library(corrplot)
+library(reshape2)
+library(dplyr)
+
+coef_df <- data.frame( 
+  Predictor = rownames(summary(logit_model)$coefficients),
+  Estimate = summary(logit_model)$coefficients[, 1],  # Coefficients
+  StdError = summary(logit_model)$standard.errors[, 1]  # Standard Errors
+)
+
+# Plot coefficients with error bars
+ggplot(coef_df, aes(x = Predictor, y = Estimate)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = Estimate - 1.96 * StdError, ymax = Estimate + 1.96 * StdError), width = 0.2) +
+  labs(title = "Multinomial Logistic Regression Coefficients",
+       x = "Predictor Variables", y = "Coefficient Estimate") +
+  theme_minimal() +
+  coord_flip()
+
+```
