@@ -5,13 +5,14 @@ date: "2025-01-23"
 output: html_document
 ---
 ```{r}
-# Load necessary libraries
+#Strategy VS Platform
+
 library(dplyr)
 
 # Read the dataset
 data <- read.csv("C:/Users/HP/Desktop/kaleniya/3rd year/SEM 2/CAPSTONE PROJECT/Data_Research.csv")
 
-data
+print(data)
 
 # Merge TikTok and Other into "Other" category
 data$Most_Used_SM <- ifelse(data$Most_Used_SM %in% c("TikTok", "Other"), "Other", data$Most_Used_SM)
@@ -41,14 +42,11 @@ cramers_v <- sqrt(chi_square_test$statistic / (sum(contingency_table) * (min(nro
 # Display Results
 cramers_v
 
-# Load Required Library
 library(nnet)
 
 data <- subset(data, Strategy != "Other")  # Exclude rows where Strategy is "Other"
 
-
-
-# Convert Variables to Factors (if not already)
+# Convert Variables to Factors 
 data$Most_Used_SM <- as.factor(data$Most_Used_SM)
 data$Strategy <- as.factor(data$Strategy)
 
@@ -60,17 +58,12 @@ summary(logit_model)
 
 levels(data$Most_Used_SM)
 
-data$Most_Used_SM <- relevel(data$Most_Used_SM, ref = "WhatsApp")  # Change reference to Instagram
+data$Most_Used_SM <- relevel(data$Most_Used_SM, ref = "WhatsApp")  # Change reference 
 logit_model <- multinom(Most_Used_SM ~ Strategy, data = data)
 summary(logit_model)
 
-# Load libraries
+
 library(ggplot2)
-library(ggmosaic)
-library(ggpubr)
-library(corrplot)
-library(reshape2)
-library(dplyr)
 
 coef_df <- data.frame(
   Predictor = rownames(summary(logit_model)$coefficients),
@@ -90,9 +83,8 @@ ggplot(coef_df, aes(x = Predictor, y = Estimate)) +
 ```
 
 ```{r}
+#Daily SM time VS  Platform, Frequency of Usage, Marital Status, State Trust  
 
-
-# Load necessary libraries
 library(dplyr)
 
 # Read the dataset
@@ -106,7 +98,7 @@ table(data$Daily_Spend_SM, data$Most_Used_SM)
 
 contingency_table <- table(data_filtered$Daily_Spend_SM, data_filtered$Most_Used_SM)
 
-contingency_table_modified <- contingency_table[-2, ]  # Removes the second row
+contingency_table_modified <- contingency_table[-2, ]  # Removes the second row which contains majority of zero values
 
 contingency_table_modified
 
@@ -129,7 +121,7 @@ table(data$Daily_Spend_SM, data$Frequency_FFA)
 
 contingency_table <- table(data_filtered$Daily_Spend_SM, data_filtered$Frequency_FFA)
 
-contingency_table_modified <- contingency_table[-2, ]  # Removes the second row
+contingency_table_modified <- contingency_table[-2, ]  # Removes the second row which contains majority of zero values 
 contingency_table_modified
 
 # Run the Chi-Square test
@@ -151,7 +143,7 @@ table(data$Daily_Spend_SM, data$Marital_Status)
 
 contingency_table <- table(data_filtered$Daily_Spend_SM, data_filtered$Marital_Status)
 
-contingency_table_modified <- contingency_table[-2, ]  # Removes the second row
+contingency_table_modified <- contingency_table[-2, ]  # Removes the second row which contains majority of zero values
 contingency_table_modified
 
 # Run the Chi-Square test
@@ -172,7 +164,7 @@ table(data$Daily_Spend_SM, data$State_Trust)
 
 contingency_table <- table(data_filtered$Daily_Spend_SM, data_filtered$State_Trust)
 
-contingency_table_modified <- contingency_table[-2, ]  # Removes the second row
+contingency_table_modified <- contingency_table[-2, ]  # Removes the second row which contains majority of zero values
 contingency_table_modified
 
 # Run the Chi-Square test
@@ -203,11 +195,6 @@ summary(logit_model)
 
 # Load libraries
 library(ggplot2)
-library(ggmosaic)
-library(ggpubr)
-library(corrplot)
-library(reshape2)
-library(dplyr)
 
 coef_df <- data.frame(
   Predictor = rownames(summary(logit_model)$coefficients),
@@ -227,8 +214,8 @@ ggplot(coef_df, aes(x = Predictor, y = Estimate)) +
 
 ```
 ```{r}
+#Platform VS Marketing Strategies, Gender, Marital status, State of Trust
 
-# Load necessary libraries
 library(dplyr)
 
 # Read the dataset
@@ -332,11 +319,6 @@ summary(logit_model)
 
 # Load libraries
 library(ggplot2)
-library(ggmosaic)
-library(ggpubr)
-library(corrplot)
-library(reshape2)
-library(dplyr)
 
 coef_df <- data.frame( 
   Predictor = rownames(summary(logit_model)$coefficients),
@@ -354,5 +336,3 @@ ggplot(coef_df, aes(x = Predictor, y = Estimate)) +
   coord_flip()
 
 ```
-
-
