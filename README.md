@@ -3,7 +3,7 @@
 
 ---
 title: "inferential analysis"
-author: "R N R Fonseka PS/2020/215 R N R Fonseka"
+author: "R N R Fonseka PS/2020/215 "
 date: "2025-01-23"
 output: html_document
 ---
@@ -101,7 +101,7 @@ table(data$Daily_Spend_SM, data$Most_Used_SM)
 
 contingency_table <- table(data_filtered$Daily_Spend_SM, data_filtered$Most_Used_SM)
 
-contingency_table_modified <- contingency_table[-2, ]  # Removes the second row
+contingency_table_modified <- contingency_table[-2, ]  # Removes the second row which contains majority of zero values
 
 contingency_table_modified
 
@@ -124,7 +124,7 @@ table(data$Daily_Spend_SM, data$Frequency_FFA)
 
 contingency_table <- table(data_filtered$Daily_Spend_SM, data_filtered$Frequency_FFA)
 
-contingency_table_modified <- contingency_table[-2, ]  # Removes the second row
+contingency_table_modified <- contingency_table[-2, ]  # Removes the second row which contains majority of zero values 
 contingency_table_modified
 
 # Run the Chi-Square test
@@ -146,7 +146,7 @@ table(data$Daily_Spend_SM, data$Marital_Status)
 
 contingency_table <- table(data_filtered$Daily_Spend_SM, data_filtered$Marital_Status)
 
-contingency_table_modified <- contingency_table[-2, ]  # Removes the second row
+contingency_table_modified <- contingency_table[-2, ]  # Removes the second row which contains majority of zero values
 contingency_table_modified
 
 # Run the Chi-Square test
@@ -167,7 +167,7 @@ table(data$Daily_Spend_SM, data$State_Trust)
 
 contingency_table <- table(data_filtered$Daily_Spend_SM, data_filtered$State_Trust)
 
-contingency_table_modified <- contingency_table[-2, ]  # Removes the second row
+contingency_table_modified <- contingency_table[-2, ]  # Removes the second row which contains majority of zero values
 contingency_table_modified
 
 # Run the Chi-Square test
