@@ -1,5 +1,5 @@
 # Research_Capstone_project
-🍔 Uncovering How Social Media Marketing Tactics Drive Gen Z’s Fast Food Consumer Behavior This project analyzes how social media marketing strategies, impact Gen Z’s fast food purchasing behavior in the Gampaha District using statistical inference and R-based analysis.
+🍔 Uncovering How Social Media Marketing Tactics Drive Gen Z’s Fast Food Consumer Behavior This project analyzes how social media marketing strategies, impact Gen Z’s fast food purchasing behavior in the Gampaha District according to our sample using statistical inference and R-based analysis.
 
 ---
 title: "inferential analysis"
@@ -346,7 +346,7 @@ ggplot(coef_df, aes(x = Predictor, y = Estimate)) +
 ```
 
 ---
-title: "Project Analysis"
+title: "Project Analysis K mode"
 author: "PS/2020/215 R N R Fonseka"
 date: "2025-01-23"
 output: html_document
