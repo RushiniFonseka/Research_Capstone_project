@@ -86,7 +86,7 @@ ggplot(coef_df, aes(x = Predictor, y = Estimate)) +
 ```
 
 ```{r}
-#Platform VS Marketing Strategies, Gender, Marital status, State of Trust 
+#Daily SM time VS  Platform, Frequency of Usage, Marital Status, State Trust  
 
 library(dplyr)
 
@@ -217,8 +217,8 @@ ggplot(coef_df, aes(x = Predictor, y = Estimate)) +
 
 ```
 ```{r}
+#Platform VS Marketing Strategies, Gender, Marital status, State of Trust
 
-# Load necessary libraries
 library(dplyr)
 
 # Read the dataset
