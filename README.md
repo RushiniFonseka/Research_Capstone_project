@@ -446,22 +446,22 @@ data[categorical_columns] <- lapply(data[categorical_columns], as.factor)
 # Assign Strategy Type Based on Responses
 data <- data %>%
   mutate(Platform_Type = case_when(
-    Most_Used_SM == "Facebook" ~ "Facebook",
-    Most_Used_SM == "Instagram" ~ "Instagram",
-    Most_Used_SM == "WhatsApp" ~ "WhatsApp",
-    Most_Used_SM == "YouTube" ~ "YouTube",
-    Most_Used_SM == "TikTok" ~ "TikTok",
-    TRUE ~ "Other"
+    Most_Used_SM == "Facebook" ~ "Facebook",   
+    Most_Used_SM == "Instagram" ~ "Instagram", 
+    Most_Used_SM == "WhatsApp" ~ "WhatsApp",  
+    Most_Used_SM == "YouTube" ~ "YouTube",    
+    Most_Used_SM == "TikTok" ~ "TikTok",     
+    TRUE ~ "Other"                          
   ))
 
 # Assign Clusters Based on Strategy Type
 data$Cluster <- case_when(
-  data$Platform_Type == "Facebook" ~ 1,         # Cluster 1: Targeted Ads
-  data$Platform_Type == "Instagram" ~ 2,  # Cluster 2: Influencer Recommendation
-  data$Platform_Type == "WhatsApp" ~ 3,        # Cluster 3: Customer Reviews
-  data$Platform_Type == "YouTube" ~ 4,  # Cluster 4: Limited-Time Offers
-  data$Platform_Type == "TikTok" ~ 5,
-  TRUE ~ 6                                              # Cluster 5: Other
+  data$Platform_Type == "Facebook" ~ 1,     # Cluster 1: Facebook
+  data$Platform_Type == "Instagram" ~ 2,    # Cluster 2: Instagram
+  data$Platform_Type == "WhatsApp" ~ 3,     # Cluster 3: WhatsApp
+  data$Platform_Type == "YouTube" ~ 4,      # Cluster 4: YouTube
+  data$Platform_Type == "TikTok" ~ 5,       # Cluster 5: TikTok
+  TRUE ~ 6                                  # Cluster 6: Other            
 )
 
 # Select relevant categorical columns for clustering (excluding Strategy_Type and Cluster)
@@ -534,10 +534,10 @@ data <- data %>%
 
 # Assign Clusters Based on Strategy Type
 data$Cluster <- case_when(
-  data$Daily_Spend_SM_Type == "1 - 3 hours" ~ 1,         
-  data$Daily_Spend_SM_Type == "4 - 6 hours" ~ 2,  
-  data$Daily_Spend_SM_Type == "Less than 1 hour" ~ 3,        
-  data$Daily_Spend_SM_Type == "More than 6 hours" ~ 4,  
+  data$Daily_Spend_SM_Type == "1 - 3 hours" ~ 1,        # Cluster 1: 1 - 3 hours
+  data$Daily_Spend_SM_Type == "4 - 6 hours" ~ 2,        # Cluster 2: 4 - 6 hours
+  data$Daily_Spend_SM_Type == "Less than 1 hour" ~ 3,   # Cluster 3: Less than 1 hour     
+  data$Daily_Spend_SM_Type == "More than 6 hours" ~ 4,  # Cluster 4: More than 6 hours
   TRUE ~ 5                                              # Cluster 5: Other
 )
 
