@@ -353,7 +353,7 @@ library(klaR)
 library(dplyr)
 library(ggplot2)
 
-# Load Your Dataset (replace with actual file)
+#load data 
 data <- read.csv("C:/Users/HP/Desktop/kaleniya/3rd year/SEM 2/CAPSTONE PROJECT/Data_Research.csv")  # Replace with actual file name
 
 # Convert Categorical Columns to Factors
