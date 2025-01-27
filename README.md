@@ -322,11 +322,6 @@ summary(logit_model)
 
 # Load libraries
 library(ggplot2)
-library(ggmosaic)
-library(ggpubr)
-library(corrplot)
-library(reshape2)
-library(dplyr)
 
 coef_df <- data.frame( 
   Predictor = rownames(summary(logit_model)$coefficients),
