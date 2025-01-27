@@ -3,7 +3,7 @@
 
 ---
 title: "inferential analysis"
-author: "PS/2020/215 R N R Fonseka"
+author: "R N R Fonseka PS/2020/215 R N R Fonseka"
 date: "2025-01-23"
 output: html_document
 ---
