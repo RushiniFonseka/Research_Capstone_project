@@ -86,7 +86,7 @@ ggplot(coef_df, aes(x = Predictor, y = Estimate)) +
 ```
 
 ```{r}
-
+#Platform VS Marketing Strategies, Gender, Marital status, State of Trust 
 
 library(dplyr)
 
