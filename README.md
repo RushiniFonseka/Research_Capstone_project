@@ -382,7 +382,7 @@ data$Cluster <- case_when(
   TRUE ~ 5                                              # Cluster 5: Other
 )
 
-# Select relevant categorical columns for clustering (excluding Strategy_Type and Cluster)
+#relevant categorical columns for clustering 
 clustering_columns <- c("Most_Used_SM", "Gender", "Daily_Spend_SM", "Frequency_FFA", 
                         "Influence", "State_Trust", "Marital_Status","Age_Requirement", "Residence_Requirement")
 
@@ -464,7 +464,7 @@ data$Cluster <- case_when(
   TRUE ~ 6                                  # Cluster 6: Other            
 )
 
-# Select relevant categorical columns for clustering (excluding Strategy_Type and Cluster)
+#relevant categorical columns for clustering 
 clustering_columns <- c("Strategy", "Gender", "Daily_Spend_SM", "Frequency_FFA", 
                         "Influence", "State_Trust", "Marital_Status","Age_Requirement", "Residence_Requirement")
 
@@ -489,12 +489,6 @@ cluster_summary <- data %>%
 # View Cluster Summary
 print(cluster_summary)
 
-# Visual Representation (Bar Plot for Strategy Type Distribution by Cluster)
-ggplot(data, aes(x = as.factor(Cluster), fill = Platform_Type)) +
-  geom_bar(position = "stack") +
-  labs(title = "Cluster Distribution by Strategy Type", x = "Cluster", y = "Count") +
-  theme_minimal() +
-  scale_fill_brewer(palette = "Set3")
 
 # Visual Representation (Bar Plot for Gender Distribution in Clusters)
 ggplot(data, aes(x = as.factor(Cluster), fill = Gender)) +
@@ -541,7 +535,7 @@ data$Cluster <- case_when(
   TRUE ~ 5                                              # Cluster 5: Other
 )
 
-# Select relevant categorical columns for clustering (excluding Strategy_Type and Cluster)
+# relevant categorical columns for clustering 
 clustering_columns <- c("Strategy", "Gender", "Most_Used_SM", "Frequency_FFA", 
                         "Influence", "State_Trust", "Marital_Status","Age_Requirement", "Residence_Requirement")
 
