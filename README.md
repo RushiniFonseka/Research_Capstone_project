@@ -14,7 +14,7 @@ library(dplyr)
 # Read the dataset
 data <- read.csv("C:/Users/HP/Desktop/kaleniya/3rd year/SEM 2/CAPSTONE PROJECT/Data_Research.csv")
 
-data
+print(data)
 
 # Merge TikTok and Other into "Other" category
 data$Most_Used_SM <- ifelse(data$Most_Used_SM %in% c("TikTok", "Other"), "Other", data$Most_Used_SM)
@@ -44,7 +44,6 @@ cramers_v <- sqrt(chi_square_test$statistic / (sum(contingency_table) * (min(nro
 # Display Results
 cramers_v
 
-
 library(nnet)
 
 data <- subset(data, Strategy != "Other")  # Exclude rows where Strategy is "Other"
@@ -67,11 +66,6 @@ summary(logit_model)
 
 
 library(ggplot2)
-library(ggmosaic)
-library(ggpubr)
-library(corrplot)
-library(reshape2)
-library(dplyr)
 
 coef_df <- data.frame(
   Predictor = rownames(summary(logit_model)$coefficients),
@@ -93,7 +87,6 @@ ggplot(coef_df, aes(x = Predictor, y = Estimate)) +
 ```{r}
 
 
-# Load necessary libraries
 library(dplyr)
 
 # Read the dataset
