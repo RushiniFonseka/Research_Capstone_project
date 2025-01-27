@@ -8,7 +8,7 @@ date: "2025-01-23"
 output: html_document
 ---
 ```{r}
-# Load necessary libraries
+
 library(dplyr)
 
 # Read the dataset
@@ -44,14 +44,12 @@ cramers_v <- sqrt(chi_square_test$statistic / (sum(contingency_table) * (min(nro
 # Display Results
 cramers_v
 
-# Load Required Library
+
 library(nnet)
 
 data <- subset(data, Strategy != "Other")  # Exclude rows where Strategy is "Other"
 
-
-
-# Convert Variables to Factors (if not already)
+# Convert Variables to Factors 
 data$Most_Used_SM <- as.factor(data$Most_Used_SM)
 data$Strategy <- as.factor(data$Strategy)
 
@@ -63,11 +61,11 @@ summary(logit_model)
 
 levels(data$Most_Used_SM)
 
-data$Most_Used_SM <- relevel(data$Most_Used_SM, ref = "WhatsApp")  # Change reference to Instagram
+data$Most_Used_SM <- relevel(data$Most_Used_SM, ref = "WhatsApp")  # Change reference 
 logit_model <- multinom(Most_Used_SM ~ Strategy, data = data)
 summary(logit_model)
 
-# Load libraries
+
 library(ggplot2)
 library(ggmosaic)
 library(ggpubr)
